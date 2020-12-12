@@ -3,8 +3,7 @@ A simple and easy-to-use python code for LaTeX file template creating.
 
 ## Functioning
 
-The concept of MakeMeLaTeX si simply to create a ".tex" file and to write in it the preamble of the document, 
-basically :
+The concept of MakeMeLaTeX si simply to create a ".tex" file and to write in it the preamble of the document, in a nutshell :
 - the packages that will be used
 - the author
 - the date
