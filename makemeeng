@@ -1,0 +1,101 @@
+#!/usr/bin/env python3
+# coding:utf-8
+
+"""LaTeX file template creation"""
+
+
+def redo(text, question, doc):
+    """"Doing over of the add function"""
+    add(text, question, doc)
+
+
+def add(text, question, doc):
+    """Adds the text to the preamble of the file"""
+    answer = input(question)
+
+    if answer == "y":
+        doc.write(text)
+        print("Done !")
+    elif answer == "n":
+        print("Done !")
+    else:
+        print("Please try again.")
+        redo(text, question, doc)
+
+
+def main():
+    """Main script"""
+    doc = open(str(input("Enter the name of the"
+                         + " file with the extension '.tex',"
+                         + " be careful not to choose the name"
+                         + " of an already existing file :")), "a")
+    name = str(input("Enter your full name :"))
+    promo = str(input("Enter your class :"))
+    sub = str(input("Enter the subject :"))
+    title = str(input("Enter the title :"))
+    date = str(input("Enter the deadline :"))
+
+    text = """\\documentclass[hidelinks,english,12pt,a4paper]{article}
+\n\\usepackage[utf8]{inputenc}
+\\usepackage{gensymb}
+\\usepackage[dvipsnames]{xcolor}
+\\usepackage[margin=1in]{geometry}
+\\usepackage[english]{babel}
+\\usepackage{framed}
+\\usepackage{hyperref}
+\\usepackage{sectsty}
+\\usepackage{amssymb}
+\\usepackage{amsmath} \n"""
+    doc.write(text)
+
+    print("For the following questions, answer with y=yes, n=no.")
+
+    question = "Graphs, schemas ?"
+    text = """\\usepackage{tikz,tkz-tab}
+    \\usetikzlibrary{intersections} \n"""
+    add(text, question, doc)
+
+    question = "Columns ?"
+    text = "\\usepackage{multicol}"
+    add(text, question, doc)
+
+    question = "Chemical figures ?"
+    text = "\\usepackage{chemfig} \n"
+    add(text, question, doc)
+
+    text = """\\usepackage{fancyhdr}
+\\pagestyle{fancy}
+\\fancyhf{}
+\\rhead{""" + str(name) + " " + str(promo) + """}
+\\lhead{""" + str(sub) + """}
+\\cfoot{\\thepage}
+\\lfoot{\\date}
+\\hypersetup{
+    colorlinks=false,
+    linkcolor=green,
+    filecolor=magenta,
+    urlcolor=cyan,
+}\n"""
+    doc.write(text)
+
+    text = "\n\\title{" + str(title) + """}
+\\author{""" + str(name) + """}
+\\date{""" + str(date) + """}\n
+\\begin{document}
+    \\maketitle\n"""
+    doc.write(text)
+
+    question = "Do you want a writing space ?"
+    text = """        \\begin{framed}
+    {\\large \\noindent \\textcolor{BrickRed}{Observations :}}
+                \\vspace{1in}
+        \\end{framed}"""
+    add(text, question, doc)
+
+    text = "\n\n\\end{document}"
+    doc.write(text)
+    doc.close()
+
+
+if __name__ == "__main__":
+    main()
